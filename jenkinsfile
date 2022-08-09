@@ -1,0 +1,19 @@
+node {
+    stage('Preparation') { // for display purposes
+        // Get some code from a GitHub repository
+        git 'https://github.com/cassassi/test'
+
+    }
+    stage('Build') {
+        // Run the maven build
+        if (isUnix()) {
+            sh 'javac Main.java'
+            sh 'java Main'
+        } else {
+            sh 'echo "nothing"'
+        }
+    }
+    stage('Results') {
+        archiveArtifacts '*'
+    }
+}
